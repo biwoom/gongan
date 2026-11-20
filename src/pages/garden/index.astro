@@ -1,0 +1,33 @@
+---
+import prototype from '../../gongan-healing-stay-prototype.html?raw';
+const fallback = prototype.match(/<svg[^>]*>[\s\S]*?<\/svg>/)?.[0] ?? '';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/><title>물의 정원 | 공간</title></head>
+<body>
+<main class="garden" data-model={base + '/models/garden-entrance-v01.glb'}>
+  <div class="fallback" aria-hidden="true"><Fragment set:html={fallback}/></div>
+  <div class="viewport" aria-hidden="true"></div>
+  <header><span>공간 · 나만의 힐링스테이</span><h1>물의 정원</h1><p>물 건너 작은 빛이 보입니다.</p></header>
+  <footer>
+    <p class="status" id="garden-status" role="status">고요한 정원 그림을 보여드려요.</p>
+    <nav aria-label="정원 조작"><button type="button" id="garden-motion" aria-pressed="false" hidden>천천히 바라보기</button><a href={base + '/'}>이전 시제품으로</a></nav>
+  </footer>
+</main>
+<script src="../../garden/scene.js"></script>
+</body>
+</html>
+<style is:global>
+  :root{color-scheme:dark;background:#102a36;color:#f4f7ea;font:16px/1.5 system-ui,sans-serif}
+  *{box-sizing:border-box}body{margin:0}button[hidden]{display:none}
+  .garden{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:space-between;min-height:100svh;overflow:hidden;padding:clamp(1.15rem,4vw,3rem);padding-top:max(clamp(1.15rem,4vw,3rem),env(safe-area-inset-top));padding-bottom:max(clamp(1.15rem,4vw,3rem),env(safe-area-inset-bottom))}
+  .garden::after{content:"";position:absolute;inset:0;background:linear-gradient(#0b2536dc,transparent 32%,transparent 64%,#0b2632e8);pointer-events:none;z-index:-1}
+  .garden .fallback,.garden .viewport{position:absolute;inset:0;z-index:-2}.garden .fallback svg,.garden canvas{width:100%;height:100%;display:block}
+  .garden header span{letter-spacing:.15em;font-size:.76rem}.garden h1{margin:.55rem 0 0;font-size:clamp(2rem,5vw,3.3rem);line-height:1.12;font-weight:500;letter-spacing:-.06em}.garden header p{margin:.52rem 0 0}.garden nav{display:flex;gap:.65rem;flex-wrap:wrap;align-items:center}
+  .garden button,.garden nav a{min-height:44px;display:inline-flex;align-items:center;padding:.55rem 1rem;color:inherit;text-decoration:none;border:1px solid #9db8b7;background:#173742;border-radius:100px;font:inherit}
+  .garden button{background:#e5efd9;color:#193b44;border-color:#e5efd9;cursor:pointer}.garden button[hidden]{display:none}
+  .garden button:focus-visible,.garden a:focus-visible{outline:3px solid #f5d894;outline-offset:3px}.garden .status{font-size:.86rem;color:#eff5e6;margin:0 0 .6rem}
+  @media(prefers-reduced-motion:reduce){.garden *{animation:none!important;transition:none!important}}
+</style>
